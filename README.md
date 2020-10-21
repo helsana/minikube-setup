@@ -60,6 +60,11 @@ kubectl port-forward services/mongodb-headless 27017:27017
 ![](image/Robo3T-2.png)
 
 # Minikube Tips
+## Minikube IP
+```
+minikube ip
+```
+
 ## Dashboard
 ```
 minikube dashboard &
@@ -73,3 +78,64 @@ minikube service partner-service --url
 ```
 http $(minikube service partner-service --url)forwarded:for='minikube.me;host=minikube.me' "Authorization: Bearer $TOKEN"
 ```
+
+## Minikube Ingress Setup
+/etc/hosts
+
+To get on the service with the URL `minikube.me` we update now our local `/etc/hosts` file with IP address from the minikube IP.
+Run the following command:
+```
+echo $(minikube ip) minikube.me | sudo tee -a /etc/hosts
+
+Password:
+192.168.64.11 minikube.me
+```
+Verify it the IP is in the /etc/hosts with the following command:
+```
+cat /etc/hosts | tail -n 1
+
+192.168.64.11 minikube.me
+```
+
+### Deploy Ingress
+```
+echo "apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+ name: nginx-ingress
+ namespace: default
+ annotations:
+   nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+ rules:
+ - host: minikube.me
+   http:
+     paths:
+     - path: /
+       backend:
+         serviceName: gateway-service
+         servicePort: 8080
+" | kubectl apply -f -
+```
+Or just apply the file in the ingress folder
+```
+kubectl apply -f ingress/nginx-ingress.yaml
+```
+### Check Ingress
+```
+kubectl get ingress
+Warning: extensions/v1beta1 Ingress is deprecated in v1.14+, unavailable in v1.22+; use networking.k8s.io/v1 Ingress
+NAME            CLASS    HOSTS         ADDRESS        PORTS   AGE
+nginx-ingress   <none>   minikube.me   192.168.64.4   80      109s
+```
+
+# RBAC
+To Read the `ConfigMaps` and `Secrets` with the [Spring Cloud Kubernetes](https://spring.io/projects/spring-cloud-kubernetes)
+library to read from a Spring Boot application we have also to apply the 
+```
+kubectl apply -f rbac/roles.yaml
+
+role.rbac.authorization.k8s.io/namespace-reader created
+rolebinding.rbac.authorization.k8s.io/namespace-reader-binding created
+```
+
