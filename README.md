@@ -8,7 +8,8 @@ brew install sops
 brew install gnupg
 brew install hyperkit
 brew install minikube
-brew install 
+brew install watchbrew 
+brew install jq
 brew install dive
 brew install skopeo
 brew install httpie
