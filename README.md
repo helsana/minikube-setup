@@ -1,12 +1,18 @@
-# minikube-setup
-Local Development Environment
+# Minikube Setup
+Local Development Environment with minikube.
 
-# OSX
-
-## Hyperkit
+# Brew Installation Packages
 ```
+brew install shyiko/kubesec/kubesec
+brew install sops
+brew install gnupg
 brew install hyperkit
 brew install minikube
+```
+
+# OSX
+## Hyperkit
+```
 minikube config set driver hyperkit
 ```
 
@@ -30,4 +36,13 @@ helm install prometheus prometheus-community/kube-prometheus-stack
 helm install mongodb --set architecture=replicaset bitnami/mongodb
 helm install redis bitnami/redis
 ```  
-  
+
+# Connect to MongoDB with Robo3T
+## Get Password
+```
+kubectl get secret --namespace default mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode
+```
+## Port Forward
+```
+kubectl port-forward services/mongodb-headless 27017:27017
+```
