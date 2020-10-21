@@ -55,9 +55,8 @@ kubectl get secret --namespace default mongodb -o jsonpath="{.data.mongodb-root-
 kubectl port-forward services/mongodb-headless 27017:27017
 ```
 ## Configure MongoDB Connection
-![](./img/Robo3T-1.png =250x)
-![](./img/Robo3T-2.png =250x)
-
+![](image/Robo3T-1.png)
+![](image/Robo3T-2.png)
 
 # Minikube Tips
 ## Dashboard
