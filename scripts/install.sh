@@ -36,3 +36,10 @@ kubectl apply -f rbac
 kubesec decrypt secret/secret.enc.yaml | kubectl apply -n default -f -
 kubesec decrypt secret/myhelsana-keystore-secret.enc.yaml | kubectl apply -n default -f -
 
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+helm install prometheus prometheus-community/kube-prometheus-stack
+helm install mongodb --set architecture=replicaset bitnami/mongodb
+helm install redis bitnami/redis
+
