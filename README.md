@@ -26,7 +26,7 @@ minikube config set driver hyperkit
 ```
 ## Minikube Change CPUs and Memory 
 ```
-minikube start -p helsana --memory=8192 --cpus=4 --disk-size=100g
+minikube start --memory=8192 --cpus=4 --disk-size=100g
 
 kubectl get node minikube -o jsonpath=‘{.status.capacity}’
 ```
@@ -34,10 +34,10 @@ kubectl get node minikube -o jsonpath=‘{.status.capacity}’
 
 ## Minikube Addons
 ```
-minikube -p helsana addons enable dashboard 
-minikube -p helsana addons enable metrics-server 
-minikube -p helsana addons enable ingress 
-minikube -p helsana addons enable registry
+minikube addons enable dashboard 
+minikube addons enable metrics-server 
+minikube addons enable ingress 
+minikube addons enable registry
 ```
 
 # Helm Repos
@@ -69,21 +69,21 @@ kubectl port-forward services/mongodb-headless 27017:27017
 # Minikube Tips
 ## Minikube IP
 ```
-minikube ip -p helsana
+minikube ip
 ```
 
 ## Dashboard
 ```
-minikube -p helsana dashboard  & 
+minikube dashboard  & 
 ```
 ## Get URL
 ```
-minikube -p helsana service partner-service --url
+minikube service partner-service --url
 ```
 
 ## Call Service
 ```
-http $(minikube -p helsana service partner-service --url)forwarded:for='minikube.me;host=minikube.me' "Authorization: Bearer $TOKEN"
+http $(minikube service partner-service --url)forwarded:for='minikube.me;host=minikube.me' "Authorization: Bearer $TOKEN"
 ```
 
 ## Minikube Ingress Setup
@@ -92,7 +92,7 @@ http $(minikube -p helsana service partner-service --url)forwarded:for='minikube
 To get on the service with the URL `minikube.me` we update now our local `/etc/hosts` file with IP address from the minikube IP.
 Run the following command:
 ```
-echo $(minikube -p helsana ip) minikube.me | sudo tee -a /etc/hosts
+echo $(minikube ip) minikube.me | sudo tee -a /etc/hosts
 
 Password:
 192.168.64.11 minikube.me
