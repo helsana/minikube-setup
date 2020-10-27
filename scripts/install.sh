@@ -14,6 +14,9 @@ brew install stern
 brew install helm
 brew install kustomize
 brew install skaffold
+brew install kubectx
+
+kubectx minikube
 
 minikube config set driver hyperkit
 
