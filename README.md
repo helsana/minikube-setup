@@ -106,22 +106,25 @@ cat /etc/hosts | tail -n 1
 
 ### Deploy Ingress
 ```
-echo "apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+echo "apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
  name: nginx-ingress
  namespace: default
  annotations:
-   nginx.ingress.kubernetes.io/rewrite-target: /
+   nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
  rules:
  - host: minikube.me
    http:
      paths:
      - path: /
+       pathType: Prefix
        backend:
-         serviceName: gateway-service
-         servicePort: 8080
+         service:
+          name: gateway-service
+          port:
+            number: 8080
 " | kubectl apply -f -
 ```
 Or just apply the file in the ingress folder
