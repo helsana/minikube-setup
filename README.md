@@ -112,7 +112,7 @@ metadata:
  name: nginx-ingress
  namespace: default
  annotations:
-   nginx.ingress.kubernetes.io/rewrite-target: /$1
+   nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
  rules:
  - host: minikube.me
