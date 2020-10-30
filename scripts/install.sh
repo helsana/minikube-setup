@@ -32,6 +32,7 @@ cd ../
 kubectl apply -f endpoints
 kubectl apply -f ingress
 kubectl apply -f rbac
+kubectl apply -f jaeger
 
 kubesec decrypt secret/secret.enc.yaml | kubectl apply -n default -f -
 kubesec decrypt secret/myhelsana-keystore-secret.enc.yaml | kubectl apply -n default -f -
