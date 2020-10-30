@@ -149,3 +149,12 @@ role.rbac.authorization.k8s.io/namespace-reader created
 rolebinding.rbac.authorization.k8s.io/namespace-reader-binding created
 ```
 
+# Jaeger
+```
+kubectl apply -f jaeger
+```
+
+Access Jaeger UI using:
+```
+minikube service jaeger-query
+```
