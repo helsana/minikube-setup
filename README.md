@@ -1,57 +1,21 @@
-# Minikube Setup
-Local Development Environment with minikube.
+# Minikube Setup with private GIT contracts Repository
 
-# Brew Installation Packages
+## Define Variable for Azure PersonalAccessToken and Git Repository for Spring Cloud Contracts
 ```
-brew install shyiko/kubesec/kubesec
-brew install sops
-brew install gnupg
-brew install hyperkit
-brew install minikube
-brew install watchbrew 
-brew install jq
-brew install dive
-brew install skopeo
-brew install httpie
-brew install stern
-brew install helm
-brew install kustomize 
-brew install skaffold
+export AZURE_GIT="git://https://dev.azure.com/organisation/project/_git/contracts"
+export AZURE_PAT="YOUR-PERSONAL-ACCESS-TOKEN"
 ```
 
-# OSX
-## Hyperkit
+If you already have a minikube profile with name `minikube` the following script will delete it.
+for a clean installation.
 ```
-minikube config set driver hyperkit
-```
-## Minikube Change CPUs and Memory 
-```
-minikube start --memory=8192 --cpus=4 --disk-size=100g
-
-kubectl get node minikube -o jsonpath=‘{.status.capacity}’
+./install.sh
 ```
 
 
-## Minikube Addons
-```
-minikube addons enable dashboard 
-minikube addons enable metrics-server 
-minikube addons enable ingress 
-minikube addons enable registry
-```
 
-# Helm Repos
-```
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-```
+
   
-# Helm Install 
-```
-helm install prometheus prometheus-community/kube-prometheus-stack
-helm install mongodb --set architecture=replicaset bitnami/mongodb
-helm install redis bitnami/redis
-```  
 
 # Connect to MongoDB with Robo3T
 ## Get Password
@@ -104,33 +68,6 @@ cat /etc/hosts | tail -n 1
 192.168.64.11 minikube.me
 ```
 
-### Deploy Ingress
-```
-echo "apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
- name: nginx-ingress
- namespace: default
- annotations:
-   nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
- rules:
- - host: minikube.me
-   http:
-     paths:
-     - path: /
-       pathType: Prefix
-       backend:
-         service:
-          name: gateway-service
-          port:
-            number: 8080
-" | kubectl apply -f -
-```
-Or just apply the file in the ingress folder
-```
-kubectl apply -f ingress/nginx-ingress.yaml
-```
 ### Check Ingress
 ```
 kubectl get ingress
@@ -139,21 +76,7 @@ NAME            CLASS    HOSTS         ADDRESS        PORTS   AGE
 nginx-ingress   <none>   minikube.me   192.168.64.4   80      109s
 ```
 
-# RBAC
-To Read the `ConfigMaps` and `Secrets` with the [Spring Cloud Kubernetes](https://spring.io/projects/spring-cloud-kubernetes)
-library to read from a Spring Boot application we have also to apply the 
-```
-kubectl apply -f rbac/roles.yaml
-
-role.rbac.authorization.k8s.io/namespace-reader created
-rolebinding.rbac.authorization.k8s.io/namespace-reader-binding created
-```
-
 # Jaeger
-```
-kubectl apply -f jaeger
-```
-
 Access Jaeger UI using:
 ```
 minikube service jaeger-query

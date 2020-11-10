@@ -25,13 +25,15 @@ spec:
             - name: STUBRUNNER_GENERATE_STUBS
               value: "TRUE"
             - name: STUBRUNNER_REPOSITORY_ROOT
-              value: "git://https://dev.azure.com/helsana/MYHELSANA/_git/contracts"
+              value: ${AZURE_GIT}
             - name: STUBRUNNER_USERNAME
               value: "helsana"
             - name: STUBRUNNER_PASSWORD
-              value: "AZURE-PAT"
+              value: ${AZURE_PAT}
             - name: STUBRUNNER_PROPERTIES_GIT_ENSURE_GIT_SUFFIX
               value: "FALSE"
+            - name: LANG
+              value: "C.UTF-8"
 ---
 apiVersion: v1
 kind: Service
@@ -47,4 +49,3 @@ spec:
   selector:
     app: contracts
   type: NodePort
-

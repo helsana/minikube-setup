@@ -28,3 +28,4 @@ target
 /scripts/stub-runner.jar
 
 .DS_Store
+.deploy
