@@ -13,6 +13,5 @@ fi
 
 BASEDIR=$(dirname "$0")
 mkdir -p "${BASEDIR}/../.deploy"
-envsubst < ${BASEDIR}/../contracts/contracts.template > ${BASEDIR}/../.deploy/contracts.yaml
+envsubst < ${BASEDIR}/../templates/contracts.template > ${BASEDIR}/../.deploy/contracts.yaml
 kubectl apply -f ${BASEDIR}/../.deploy
-
