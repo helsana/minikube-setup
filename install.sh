@@ -3,7 +3,7 @@
 BREW_TOOLS="scripts/brew-tools.sh"
 DELETE_MINIKUBE="scripts/delete-minikube.sh"
 SETUP_MINIKUBE="scripts/setup-minikube.sh"
-HELM_TOOLS="scripts/helm-tools.sh"
+HELM_TOOLS="scripts/install-helm-tools.sh"
 INSTALL_SECRETS="scripts/install-secrets.sh"
 INSTALL_CONTRACTS="scripts/install-contracts.sh"
 INSTALL_K8S="scripts/install-k8s.sh"
