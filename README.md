@@ -81,3 +81,23 @@ Access Jaeger UI using:
 ```
 minikube service jaeger-query
 ```
+
+# Prometheus
+```
+kubectl port-forward svc/prometheus-kube-prometheus-prometheus 9090:9090
+```
+
+Access Prometheus UI via http://localhost:9090
+
+# Grafana
+```
+kubectl port-forward deployment/prometheus-operator-grafana 3000:3000
+```
+
+Access Grafana UI via http://localhost:3000
+
+Credentials for Grafana are stored in secret `prometheus-grafana`
+
+```
+kubectl get secret prometheus-grafana -o yaml
+```
