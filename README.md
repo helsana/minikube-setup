@@ -91,7 +91,7 @@ Access Prometheus UI via http://localhost:9090
 
 # Grafana
 ```
-kubectl port-forward deployment/prometheus-operator-grafana 3000:3000
+kubectl port-forward svc/prometheus-grafana 3000:80
 ```
 
 Access Grafana UI via http://localhost:3000
