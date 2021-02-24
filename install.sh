@@ -12,7 +12,7 @@ eval '"$BREW_TOOLS"'
 eval '"$DELETE_MINIKUBE"'
 eval '"$SETUP_MINIKUBE"'
 eval '"$HELM_TOOLS"'
-#eval '"$INSTALL_CONTRACTS"'
+eval '"$INSTALL_CONTRACTS"'
 eval '"$INSTALL_SECRETS"'
 eval '"$INSTALL_K8S"'
 
